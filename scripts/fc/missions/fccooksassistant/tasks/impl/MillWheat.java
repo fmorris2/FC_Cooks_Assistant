@@ -83,7 +83,7 @@ public class MillWheat extends AnticipativeTask
 		{
 			while(Login.getLoginState() == STATE.INGAME && !QuestSettings.COLLECT_FLOUR.isValid())
 			{
-				if(new ClickObject("Operate", "Hopper controls", 10).execute())
+				if(new ClickObject("Operate", "Hopper controls", 10).execute() && FCTiming.waitCondition(() -> Player.getAnimation() != -1, 5000))
 					return true;
 				
 				General.sleep(1000);
@@ -104,8 +104,7 @@ public class MillWheat extends AnticipativeTask
 	@Override
 	public void waitForTaskComplete()
 	{
-		if(FCTiming.waitCondition(() -> Game.getSetting(695) == 1 && Player.getAnimation() != -1, 5000))
-			FCTiming.waitCondition(() -> Player.getAnimation() == -1, 3500);
+		FCTiming.waitCondition(() -> Player.getAnimation() == -1, 3500);		
 	}
 
 }
