@@ -6,13 +6,13 @@ import org.tribot.api.interfaces.Positionable;
 import org.tribot.api2007.Camera;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
-import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
 
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.impl.grounditems.PickUpGroundItem;
 import scripts.fc.api.interaction.impl.objects.ClickObject;
+import scripts.fc.api.travel.Travel;
 import scripts.fc.api.viewport.FCCameraUtils;
 import scripts.fc.framework.task.Task;
 import scripts.fc.missions.fccooksassistant.FCCooksAssistant;
@@ -31,13 +31,9 @@ public class GetBucket extends Task
 	public boolean execute()
 	{
 		if(!CELLAR_AREA.contains(Player.getPosition()))
-		{
 			goToCellar();
-		}
 		else
-		{
 			pickUpBucket();
-		}
 		
 		return true;
 	}
@@ -58,7 +54,7 @@ public class GetBucket extends Task
 	{
 		if(!KITCHEN_AREA.contains(Player.getPosition()))
 		{
-			if(WebWalking.walkTo(FCCooksAssistant.KITCHEN_TILE))
+			if(Travel.webWalkTo(FCCooksAssistant.KITCHEN_TILE))
 				Timing.waitCondition(FCConditions.inAreaCondition(KITCHEN_AREA), 4000);
 		}
 		else
