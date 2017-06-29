@@ -1,7 +1,8 @@
-package scripts.fc.missions.fccooksassistant.tasks.impl;
+package scripts.fc.missions.fccooksassistant.prereq_missions.bucket_of_milk.tasks;
 
 import org.tribot.api.Timing;
 import org.tribot.api.interfaces.Positionable;
+import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
@@ -11,7 +12,6 @@ import scripts.fc.api.interaction.impl.npcs.ClickNpc;
 import scripts.fc.api.travel.Travel;
 import scripts.fc.api.viewport.FCCameraUtils;
 import scripts.fc.framework.task.Task;
-import scripts.fc.missions.fccooksassistant.data.QuestSettings;
 
 public class MilkCow extends Task
 {
@@ -47,7 +47,7 @@ public class MilkCow extends Task
 	@Override
 	public boolean shouldExecute()
 	{
-		return QuestSettings.MILK_COW.isValid();
+		return Inventory.getCount("Bucket") > 0 && Inventory.getCount("Bucket of milk") == 0;
 	}
 
 	@Override

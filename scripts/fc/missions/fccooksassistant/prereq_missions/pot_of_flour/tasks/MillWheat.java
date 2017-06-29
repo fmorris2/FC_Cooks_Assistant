@@ -1,4 +1,4 @@
-package scripts.fc.missions.fccooksassistant.tasks.impl;
+package scripts.fc.missions.fccooksassistant.prereq_missions.pot_of_flour.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -103,7 +103,6 @@ public class MillWheat extends AnticipativeTask
 	@Override
 	public void waitForTaskComplete()
 	{
-		FCTiming.waitCondition(() -> Player.getAnimation() == -1, 3500);		
+		FCTiming.waitCondition(() -> Player.getAnimation() == -1, 3500);
 	}
-
 }

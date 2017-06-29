@@ -1,4 +1,4 @@
-package scripts.fc.missions.fccooksassistant.tasks.impl;
+package scripts.fc.missions.fccooksassistant.prereq_missions.pot_of_flour.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -10,10 +10,11 @@ import org.tribot.api2007.types.RSTile;
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.impl.objects.ClickObject;
 import scripts.fc.api.travel.Travel;
+import scripts.fc.framework.task.SpaceRequiredTask;
 import scripts.fc.framework.task.Task;
 import scripts.fc.missions.fccooksassistant.data.QuestSettings;
 
-public class PickWheat extends Task
+public class PickWheat extends Task implements SpaceRequiredTask
 {
 	private static final long serialVersionUID = -2104950617276013467L;
 	private final Positionable WHEAT_TILE = new RSTile(3162, 3292, 0);
@@ -43,6 +44,12 @@ public class PickWheat extends Task
 	public String getStatus()
 	{
 		return "Pick wheat";
+	}
+
+	@Override
+	public int getSpaceRequired()
+	{
+		return 1;
 	}
 
 }

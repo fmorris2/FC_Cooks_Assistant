@@ -1,9 +1,10 @@
-package scripts.fc.missions.fccooksassistant.tasks.impl;
+package scripts.fc.missions.fccooksassistant.prereq_missions.bucket_of_milk.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.interfaces.Positionable;
 import org.tribot.api2007.Camera;
+import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.types.RSArea;
@@ -14,11 +15,11 @@ import scripts.fc.api.interaction.impl.grounditems.PickUpGroundItem;
 import scripts.fc.api.interaction.impl.objects.ClickObject;
 import scripts.fc.api.travel.Travel;
 import scripts.fc.api.viewport.FCCameraUtils;
+import scripts.fc.framework.task.SpaceRequiredTask;
 import scripts.fc.framework.task.Task;
 import scripts.fc.missions.fccooksassistant.FCCooksAssistant;
-import scripts.fc.missions.fccooksassistant.data.QuestSettings;
 
-public class GetBucket extends Task
+public class GetBucket extends Task implements SpaceRequiredTask
 {	
 	private static final long serialVersionUID = 8306748680279766036L;
 	
@@ -41,7 +42,7 @@ public class GetBucket extends Task
 	@Override
 	public boolean shouldExecute()
 	{
-		return QuestSettings.GET_BUCKET.isValid();
+		return Inventory.getCount("Bucket") == 0 && Inventory.getCount("Bucket of milk") == 0;
 	}
 
 	@Override
@@ -83,6 +84,12 @@ public class GetBucket extends Task
 			else
 				FCCameraUtils.adjustCameraRandomly();
 		}
+	}
+
+	@Override
+	public int getSpaceRequired()
+	{
+		return 1;
 	}
 
 }

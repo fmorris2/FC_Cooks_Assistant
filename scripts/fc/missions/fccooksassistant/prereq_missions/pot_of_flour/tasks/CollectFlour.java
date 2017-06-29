@@ -1,4 +1,4 @@
-package scripts.fc.missions.fccooksassistant.tasks.impl;
+package scripts.fc.missions.fccooksassistant.prereq_missions.pot_of_flour.tasks;
 
 import org.tribot.api.Timing;
 import org.tribot.api2007.Player;
@@ -12,6 +12,7 @@ import scripts.fc.missions.fccooksassistant.data.QuestSettings;
 
 public class CollectFlour extends Task implements PredictableInteraction
 {
+	private static final long serialVersionUID = -6447021772045955354L;
 
 	@Override
 	public boolean execute()

@@ -1,9 +1,9 @@
-package scripts.fc.missions.fccooksassistant.tasks.impl;
+package scripts.fc.missions.fccooksassistant.prereq_missions.egg;
 
 import org.tribot.api.Timing;
 import org.tribot.api.interfaces.Positionable;
+import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
-import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
 
@@ -11,10 +11,11 @@ import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.impl.grounditems.PickUpGroundItem;
 import scripts.fc.api.travel.Travel;
 import scripts.fc.framework.task.Task;
-import scripts.fc.missions.fccooksassistant.data.QuestSettings;
 
 public class GetEgg extends Task
 {
+	private static final long serialVersionUID = -2982150960407960159L;
+	
 	private final Positionable PEN_CENTER = new RSTile(3177, 3296, 0);
 	private final RSArea PEN_AREA = new RSArea(PEN_CENTER, 10);
 	
@@ -38,7 +39,7 @@ public class GetEgg extends Task
 	@Override
 	public boolean shouldExecute()
 	{
-		return QuestSettings.GET_EGG.isValid();
+		return Inventory.getCount("Egg") == 0;
 	}
 
 	@Override

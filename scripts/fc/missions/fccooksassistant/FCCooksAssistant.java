@@ -9,14 +9,15 @@ import org.tribot.api2007.Login;
 import org.tribot.api2007.Login.STATE;
 import org.tribot.api2007.types.RSTile;
 
-import scripts.fc.framework.mission.Mission;
-import scripts.fc.framework.mission.MissionManager;
+import scripts.fc.framework.quest.QuestScriptManager;
+import scripts.fc.framework.requirement.Requirement;
 import scripts.fc.framework.script.FCMissionScript;
 import scripts.fc.framework.task.Task;
+import scripts.fc.missions.fccooksassistant.data.CooksQuestRequirement;
 import scripts.fc.missions.fccooksassistant.data.QuestSettings;
-import scripts.fc.missions.fccooksassistant.tasks.CATask;
+import scripts.fc.missions.fccooksassistant.tasks.impl.CookDialogue;
 
-public class FCCooksAssistant extends MissionManager implements Mission
+public class FCCooksAssistant extends QuestScriptManager
 {
 	public static final Positionable KITCHEN_TILE = new RSTile(3207, 3214, 0);
 	
@@ -64,7 +65,7 @@ public class FCCooksAssistant extends MissionManager implements Mission
 	@Override
 	public LinkedList<Task> getTaskList()
 	{
-		return new LinkedList<Task>(Arrays.asList(CATask.getTasks()));
+		return new LinkedList<Task>(Arrays.asList(new CookDialogue()));
 	}
 	
 	public String toString()
@@ -81,4 +82,10 @@ public class FCCooksAssistant extends MissionManager implements Mission
 	@Override
 	public void resetStatistics()
 	{}
+
+	@Override
+	public Requirement[] getRequirements()
+	{
+		return new Requirement[]{new CooksQuestRequirement(missionScript)};
+	}
 }

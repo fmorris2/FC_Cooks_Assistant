@@ -1,4 +1,4 @@
-package scripts.fc.missions.fccooksassistant.tasks.impl;
+package scripts.fc.missions.fccooksassistant.prereq_missions.pot_of_flour.tasks;
 
 import org.tribot.api.Timing;
 import org.tribot.api2007.Player;
@@ -6,11 +6,13 @@ import org.tribot.api2007.Player;
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.impl.grounditems.PickUpGroundItem;
 import scripts.fc.api.travel.Travel;
+import scripts.fc.framework.task.SpaceRequiredTask;
 import scripts.fc.framework.task.Task;
 import scripts.fc.missions.fccooksassistant.FCCooksAssistant;
 import scripts.fc.missions.fccooksassistant.data.QuestSettings;
+import scripts.fc.missions.fccooksassistant.prereq_missions.bucket_of_milk.tasks.GetBucket;
 
-public class GetPot extends Task
+public class GetPot extends Task implements SpaceRequiredTask
 {
 	private static final long serialVersionUID = 749928296636648342L;
 
@@ -36,6 +38,12 @@ public class GetPot extends Task
 	public String getStatus()
 	{
 		return "Get pot";
+	}
+
+	@Override
+	public int getSpaceRequired()
+	{
+		return 1;
 	}
 
 }
