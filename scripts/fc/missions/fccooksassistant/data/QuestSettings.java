@@ -27,9 +27,9 @@ public enum QuestSettings
 				new AreaBool(false, new RSArea(new RSTile(3160, 3312, 1), new RSTile(3175, 3300, 1))),
 				new AreaBool(false, new RSArea(new RSTile(3160, 3312, 2), new RSTile(3175, 3300, 2))))),
 					
-	MILL_WHEAT(new QuestState(new PotBool(true), new WheatBool(true))),
+	MILL_WHEAT(new QuestState(new PotBool(true), new WheatBool(true), new SettingBool(695, 0, true, Order.EQUALS))),
 					
-	COLLECT_FLOUR(new QuestState(new PotBool(true), new FlourBool(false))),
+	COLLECT_FLOUR(new QuestState(new SettingBool(695, 1, true, Order.EQUALS), new PotBool(true), new FlourBool(false))),
 					
 	TURN_IN_QUEST(new QuestState(new SettingBool(29, 1, true, Order.EQUALS), new SettingBool(695, 0, true, Order.EQUALS), new MilkBool(true), new EggBool(true), 
 					new FlourBool(true))),

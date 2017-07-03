@@ -17,7 +17,7 @@ public class GetEgg extends Task
 	private static final long serialVersionUID = -2982150960407960159L;
 	
 	private final Positionable PEN_CENTER = new RSTile(3177, 3296, 0);
-	private final RSArea PEN_AREA = new RSArea(PEN_CENTER, 10);
+	private final RSArea PEN_AREA = new RSArea(PEN_CENTER, 7);
 	
 	@Override
 	public boolean execute()
