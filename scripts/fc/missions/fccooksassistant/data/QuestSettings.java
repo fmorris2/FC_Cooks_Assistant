@@ -45,6 +45,6 @@ public enum QuestSettings
 	
 	public boolean isValid()
 	{
-		return Arrays.stream(states).anyMatch(s -> s.validate());
+		return Arrays.stream(states).allMatch(s -> s.validate());
 	}
 }

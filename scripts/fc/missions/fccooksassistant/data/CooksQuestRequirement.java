@@ -5,6 +5,7 @@ import java.util.List;
 import scripts.fc.framework.mission.Mission;
 import scripts.fc.framework.requirement.item.ItemRequirement;
 import scripts.fc.framework.requirement.item.ReqItem;
+import scripts.fc.framework.requirement.item.SingleReqItem;
 import scripts.fc.framework.script.FCMissionScript;
 import scripts.fc.missions.fccooksassistant.prereq_missions.bucket_of_milk.GetBucketOfMilk;
 import scripts.fc.missions.fccooksassistant.prereq_missions.egg.GetEgg;
@@ -24,9 +25,9 @@ public class CooksQuestRequirement extends ItemRequirement
 	{
 		return new ReqItem[]
 		{
-			new ReqItem(BUCKET_OF_MILK, 1, true, new GetBucketOfMilk(script)),
-			new ReqItem(EGG, 1, true, new GetEgg()),
-			new ReqItem(POT_OF_FLOUR, 1, true, new GetPotOfFlour(script))
+			new SingleReqItem(BUCKET_OF_MILK, 1, false, true, new GetBucketOfMilk(script)),
+			new SingleReqItem(EGG, 1, false, true, new GetEgg()),
+			new SingleReqItem(POT_OF_FLOUR, 1, false, true, new GetPotOfFlour(script))
 		};
 	}
 
