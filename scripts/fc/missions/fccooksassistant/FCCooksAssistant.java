@@ -88,4 +88,10 @@ public class FCCooksAssistant extends QuestScriptManager
 	{
 		return new Requirement[]{new CooksQuestRequirement(missionScript)};
 	}
+
+	@Override
+	public boolean canStart()
+	{
+		return true;
+	}
 }
