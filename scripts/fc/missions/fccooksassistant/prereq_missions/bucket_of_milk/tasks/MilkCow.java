@@ -2,20 +2,24 @@ package scripts.fc.missions.fccooksassistant.prereq_missions.bucket_of_milk.task
 
 import org.tribot.api.Timing;
 import org.tribot.api.interfaces.Positionable;
+import org.tribot.api.util.abc.ABCProperties;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
 
+import scripts.fc.api.abc.PersistantABCUtil;
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.impl.npcs.ClickNpc;
 import scripts.fc.api.travel.Travel;
 import scripts.fc.api.viewport.FCCameraUtils;
+import scripts.fc.framework.data.Vars;
 import scripts.fc.framework.task.Task;
 
 public class MilkCow extends Task
 {
 	private static final long serialVersionUID = -3047782114384963082L;
+	private static final int ESTIMATED_WAIT = 3000;
 	
 	private final Positionable COW_TILE = new RSTile(3257, 3274, 0);
 	private final RSArea COW_AREA = new RSArea(COW_TILE, 8);
@@ -34,14 +38,32 @@ public class MilkCow extends Task
 		{
 			if(new ClickNpc("Milk", DAIRY_COW_ID, 15).execute())
 			{
-				if(Timing.waitCondition(FCConditions.inventoryContains("Bucket of milk"), 7500))
-					Timing.waitCondition(FCConditions.animationChanged(MILKING_ANIMATION), 5000);
+				PersistantABCUtil abc2 = Vars.get().get("abc2");
+				abc2.generateTrackers(ESTIMATED_WAIT);
+				Vars.get().addOrUpdate("milkStart", Timing.currentTimeMillis());
+				
+				boolean success = Timing.waitCondition(FCConditions.inventoryContains("Bucket of milk"), 7500)
+						&& Timing.waitCondition(FCConditions.animationChanged(MILKING_ANIMATION), 5000);
+				
+				if(success)
+					waitReaction();
 			}
 			else
 				FCCameraUtils.adjustCameraRandomly();
 		}
 		
 		return false;
+	}
+	
+	private void waitReaction()
+	{
+		PersistantABCUtil abc2 = Vars.get().get("abc2");
+		ABCProperties props = Vars.get().get("abc2Props");
+		long milkStart = Vars.get().get("milkStart");
+		
+		props.setWaitingTime(((Long)Timing.timeFromMark(milkStart)).intValue());
+		props.setWaitingFixed(true);
+		abc2.generateAndPerformReaction(props);
 	}
 
 	@Override
