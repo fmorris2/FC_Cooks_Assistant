@@ -9,6 +9,7 @@ import org.tribot.api2007.Login.STATE;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.types.RSTile;
 
+import scripts.fc.api.abc.ABC2Reaction;
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.impl.objects.ClickObject;
 import scripts.fc.api.interaction.impl.objects.ItemOnObject;
@@ -29,6 +30,7 @@ public class MillWheat extends AnticipativeTask
 	private final int LOADING_ANIM = 3572;
 	
 	private int tries = 0;
+	private ABC2Reaction reaction = new ABC2Reaction(true, 2000);
 	
 	@Override
 	public boolean execute()
@@ -82,9 +84,15 @@ public class MillWheat extends AnticipativeTask
 		{
 			while(Login.getLoginState() == STATE.INGAME && !QuestSettings.COLLECT_FLOUR.isValid())
 			{
-				if(new ClickObject("Operate", "Hopper controls", 10).execute() && FCTiming.waitCondition(() -> Player.getAnimation() != -1, 5000))
-					return true;
-				
+				if(new ClickObject("Operate", "Hopper controls", 10).execute())
+				{
+					reaction.start();
+					if(FCTiming.waitCondition(() -> Player.getAnimation() != -1, 5000))
+					{
+						reaction.react();
+						return true;
+					}
+				}
 				General.sleep(1000);
 			}
 		}

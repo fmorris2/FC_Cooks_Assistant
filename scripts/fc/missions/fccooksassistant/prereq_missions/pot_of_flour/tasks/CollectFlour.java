@@ -3,6 +3,7 @@ package scripts.fc.missions.fccooksassistant.prereq_missions.pot_of_flour.tasks;
 import org.tribot.api.Timing;
 import org.tribot.api2007.Player;
 
+import scripts.fc.api.abc.ABC2Reaction;
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.EntityInteraction;
 import scripts.fc.api.interaction.impl.objects.ClickObject;
@@ -14,6 +15,8 @@ public class CollectFlour extends Task implements PredictableInteraction
 {
 	private static final long serialVersionUID = -6447021772045955354L;
 
+	private ABC2Reaction reaction = new ABC2Reaction(true, 2000);
+	
 	@Override
 	public boolean execute()
 	{
@@ -22,9 +25,14 @@ public class CollectFlour extends Task implements PredictableInteraction
 		if(plane == 2 || plane == 1)
 			climbDown(plane);
 		else if(plane == 0)
+		{
 			if(new ClickObject("Empty", "Flour bin", 10).execute())
-				Timing.waitCondition(FCConditions.inventoryContains("Pot of flour"), 5000);
-		
+			{
+				reaction.start();
+				if(Timing.waitCondition(FCConditions.inventoryContains("Pot of flour"), 5000))
+					reaction.react();
+			}
+		}
 		return true;		
 	}
 

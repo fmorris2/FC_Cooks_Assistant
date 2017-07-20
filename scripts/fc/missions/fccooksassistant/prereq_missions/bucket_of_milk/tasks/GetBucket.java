@@ -4,12 +4,14 @@ import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.interfaces.Positionable;
 import org.tribot.api2007.Camera;
+import org.tribot.api2007.GroundItems;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
 
+import scripts.fc.api.abc.ABC2Reaction;
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.impl.grounditems.PickUpGroundItem;
 import scripts.fc.api.interaction.impl.objects.ClickObject;
@@ -27,6 +29,8 @@ public class GetBucket extends Task implements SpaceRequiredTask
 	public static final RSArea KITCHEN_AREA = new RSArea(new RSTile(3205, 3217, 0), new RSTile(3212, 3212, 0));
 	private final Positionable CELLAR_TILE = new RSTile(3214, 9620, 0);
 	private final int CELLAR_THRESHOLD = 2;
+	
+	private ABC2Reaction reaction = new ABC2Reaction(false, 30000);
 	
 	@Override
 	public boolean execute()
@@ -79,10 +83,16 @@ public class GetBucket extends Task implements SpaceRequiredTask
 		}
 		else
 		{
-			if(new PickUpGroundItem("Bucket").execute())
-				Timing.waitCondition(FCConditions.inventoryContains("Bucket"), 5000);
+			if(GroundItems.find("Bucket").length == 0)
+				reaction.start();
 			else
-				FCCameraUtils.adjustCameraRandomly();
+			{
+				reaction.react();
+				if(new PickUpGroundItem("Bucket").execute())
+					Timing.waitCondition(FCConditions.inventoryContains("Bucket"), 5000);
+				else
+					FCCameraUtils.adjustCameraRandomly();
+			}
 		}
 	}
 
