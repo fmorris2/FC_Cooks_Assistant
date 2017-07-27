@@ -1,8 +1,5 @@
 package scripts.fc.missions.fccooksassistant.data;
 
-import java.util.List;
-
-import scripts.fc.framework.mission.Mission;
 import scripts.fc.framework.requirement.item.ItemRequirement;
 import scripts.fc.framework.requirement.item.ReqItem;
 import scripts.fc.framework.requirement.item.SingleReqItem;
@@ -30,11 +27,4 @@ public class CooksQuestRequirement extends ItemRequirement
 			new SingleReqItem(POT_OF_FLOUR, 1, false, true, new GetPotOfFlour(script))
 		};
 	}
-
-	@Override
-	public List<Mission> getReqMissions()
-	{
-		return null;
-	}
-
 }
