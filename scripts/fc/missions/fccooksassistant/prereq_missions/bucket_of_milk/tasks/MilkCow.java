@@ -36,7 +36,9 @@ public class MilkCow extends Task
 		}
 		else
 		{
-			if(new ClickNpc("Milk", DAIRY_COW_ID, 15).execute())
+			ClickNpc inter = new ClickNpc("Milk", DAIRY_COW_ID, 15);
+			inter.setCheckPath(true);
+			if(inter.execute())
 			{
 				reaction.start();
 				
