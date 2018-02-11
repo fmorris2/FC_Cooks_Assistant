@@ -28,6 +28,7 @@ public class GetBucket extends Task implements SpaceRequiredTask
 	public static final RSArea CELLAR_AREA = new RSArea(new RSTile(3213, 9620, 0), 7);
 	public static final RSArea KITCHEN_AREA = new RSArea(new RSTile(3205, 3217, 0), new RSTile(3212, 3212, 0));
 	private final Positionable CELLAR_TILE = new RSTile(3214, 9620, 0);
+	private final Positionable BUCKET_TILE = new RSTile(3216, 9624, 0);
 	private final int CELLAR_THRESHOLD = 2;
 	
 	private ABC2Reaction reaction = new ABC2Reaction(false, 30000);
@@ -90,6 +91,8 @@ public class GetBucket extends Task implements SpaceRequiredTask
 				reaction.react();
 				if(new PickUpGroundItem("Bucket").execute())
 					Timing.waitCondition(FCConditions.inventoryContains("Bucket"), 5000);
+				else if((Player.getPosition().distanceTo(BUCKET_TILE) > 3) && Walking.blindWalkTo(BUCKET_TILE))
+					Timing.waitCondition(FCConditions.withinDistanceOfTile(BUCKET_TILE, 3), 3500);
 				else
 					FCCameraUtils.adjustCameraRandomly();
 			}
