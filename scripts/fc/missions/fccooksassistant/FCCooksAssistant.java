@@ -94,4 +94,9 @@ public class FCCooksAssistant extends QuestScriptManager
 	{
 		return true;
 	}
+
+	@Override
+	public int getQuestPointReward() {
+		return 1;
+	}
 }
